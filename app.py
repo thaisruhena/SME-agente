@@ -100,7 +100,7 @@ def perguntar():
     # A chave vem da variável de ambiente configurada no Render — nunca exposta ao usuário
     client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
     resp = client.messages.create(
-        model="claude-sonnet-4-20250514",
+        model="claude-haiku-4-5-20251001",
         max_tokens=2048,
         system=SYSTEM_PROMPT,
         messages=messages,
