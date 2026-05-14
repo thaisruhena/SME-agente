@@ -7,102 +7,68 @@
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0f1117; color: #e2e8f0; height: 100vh; display: flex; overflow: hidden; }
-
-  #sidebar {
-    width: 300px; min-width: 260px; background: #161b27;
-    border-right: 1px solid #1e2d40; display: flex; flex-direction: column;
-    padding: 20px 16px; overflow-y: auto; flex-shrink: 0;
-  }
+  #sidebar { width: 290px; min-width: 260px; background: #161b27; border-right: 1px solid #1e2d40; display: flex; flex-direction: column; padding: 20px 16px; overflow-y: auto; flex-shrink: 0; }
   .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
-  .brand-icon {
-    width: 42px; height: 42px; background: linear-gradient(135deg, #1d4ed8, #7c3aed);
-    border-radius: 10px; display: flex; align-items: center; justify-content: center;
-    font-size: 22px; flex-shrink: 0;
-  }
-  .brand-title { font-weight: 700; font-size: 18px; color: #f1f5f9; line-height: 1.2; }
+  .brand-icon { width: 40px; height: 40px; background: linear-gradient(135deg, #1d4ed8, #7c3aed); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+  .brand-title { font-weight: 700; font-size: 17px; color: #f1f5f9; line-height: 1.2; }
   .brand-sub { font-size: 10px; color: #4b5563; text-transform: uppercase; letter-spacing: 1px; }
-
   .section { margin-bottom: 20px; }
   .section-label { font-size: 10px; color: #4b5563; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 8px; font-weight: 600; }
-
-  .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
   .stat-box { background: #0f1117; border: 1px solid #1e2d40; border-radius: 10px; padding: 10px 8px; text-align: center; }
-  .stat-num { font-size: 22px; font-weight: 700; color: #60a5fa; line-height: 1; }
+  .stat-num { font-size: 20px; font-weight: 700; color: #60a5fa; line-height: 1; }
   .stat-lbl { font-size: 10px; color: #64748b; margin-top: 4px; line-height: 1.3; }
-
-  .quick-btn {
-    display: block; width: 100%; background: #0f1117; border: 1px solid #1e2d40;
-    border-radius: 8px; color: #94a3b8; padding: 8px 10px; text-align: left;
-    font-size: 12px; cursor: pointer; margin-bottom: 5px; line-height: 1.4;
-    font-family: inherit; transition: all 0.15s;
-  }
+  .quick-btn { display: block; width: 100%; background: #0f1117; border: 1px solid #1e2d40; border-radius: 8px; color: #94a3b8; padding: 8px 10px; text-align: left; font-size: 12px; cursor: pointer; margin-bottom: 5px; line-height: 1.4; font-family: inherit; transition: all 0.15s; }
   .quick-btn:hover { background: #1e2d40; color: #e2e8f0; border-color: #3b82f6; }
-
-  .btn-clear {
-    width: 100%; padding: 7px; background: transparent; border: 1px solid #374151;
-    border-radius: 8px; color: #6b7280; cursor: pointer; font-size: 12px; font-family: inherit; margin-top: 8px;
-  }
+  .btn-clear { width: 100%; padding: 7px; background: transparent; border: 1px solid #374151; border-radius: 8px; color: #6b7280; cursor: pointer; font-size: 12px; font-family: inherit; margin-top: 8px; }
   .btn-clear:hover { background: #1f2937; }
   .sidebar-footer { margin-top: auto; padding-top: 16px; font-size: 10px; color: #374151; line-height: 1.5; }
-
   #main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-  #chat-area { flex: 1; overflow-y: auto; padding: 24px 32px; display: flex; flex-direction: column; gap: 16px; }
-
+  #chat-area { flex: 1; overflow-y: auto; padding: 28px 36px; display: flex; flex-direction: column; gap: 20px; }
   #empty-state { margin: auto; text-align: center; max-width: 480px; padding: 32px; }
-  .empty-icon { font-size: 52px; margin-bottom: 16px; }
-  .empty-title { font-size: 24px; font-weight: 700; color: #e2e8f0; margin-bottom: 12px; }
+  .empty-icon { font-size: 48px; margin-bottom: 16px; }
+  .empty-title { font-size: 22px; font-weight: 700; color: #e2e8f0; margin-bottom: 10px; }
   .empty-sub { font-size: 14px; color: #64748b; line-height: 1.7; }
-
   .msg-user { display: flex; justify-content: flex-end; }
-  .msg-ai { display: flex; flex-direction: column; max-width: 85%; }
-  .ai-label { font-size: 10px; color: #3b82f6; margin-bottom: 4px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
-  .bubble-user {
-    background: #1d4ed8; color: #fff; padding: 12px 16px;
-    border-radius: 16px 16px 4px 16px; max-width: 600px; font-size: 14px; line-height: 1.6;
-  }
-  .bubble-ai {
-    background: #161b27; border: 1px solid #1e2d40; color: #cbd5e1;
-    padding: 14px 18px; border-radius: 4px 16px 16px 16px;
-    font-size: 14px; line-height: 1.8; white-space: pre-wrap;
-  }
-  .bubble-thinking {
-    background: #161b27; border: 1px solid #1e2d40; color: #64748b;
-    padding: 12px 18px; border-radius: 4px 16px 16px 16px;
-    font-size: 13px; display: flex; align-items: center; gap: 8px; font-style: italic;
-  }
-  .dot { width: 7px; height: 7px; background: #3b82f6; border-radius: 50%; display: inline-block; animation: blink 1.2s infinite; }
+  .msg-ai { display: flex; flex-direction: column; max-width: 88%; }
+  .ai-label { font-size: 10px; color: #3b82f6; margin-bottom: 6px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; }
+  .bubble-user { background: #1d4ed8; color: #fff; padding: 12px 16px; border-radius: 16px 16px 4px 16px; max-width: 600px; font-size: 14px; line-height: 1.6; }
+  .bubble-ai { background: #161b27; border: 1px solid #1e2d40; color: #cbd5e1; padding: 18px 22px; border-radius: 4px 16px 16px 16px; font-size: 14px; line-height: 1.75; }
+  .bubble-ai h1,.bubble-ai h2,.bubble-ai h3,.bubble-ai h4 { color: #f1f5f9; font-weight: 700; margin: 16px 0 8px; padding-bottom: 6px; border-bottom: 1px solid #1e2d40; }
+  .bubble-ai h1 { font-size: 17px; }
+  .bubble-ai h2 { font-size: 15px; }
+  .bubble-ai h3 { font-size: 14px; border-bottom: none; color: #93c5fd; }
+  .bubble-ai h4 { font-size: 13px; border-bottom: none; color: #94a3b8; }
+  .bubble-ai p { margin: 8px 0; }
+  .bubble-ai ul,.bubble-ai ol { margin: 8px 0 8px 20px; }
+  .bubble-ai li { margin: 4px 0; line-height: 1.65; }
+  .bubble-ai strong { color: #f1f5f9; font-weight: 600; }
+  .bubble-ai em { color: #a5b4fc; }
+  .bubble-ai hr { border: none; border-top: 1px solid #1e2d40; margin: 14px 0; }
+  .bubble-ai code { background: #0f1117; color: #86efac; padding: 1px 6px; border-radius: 4px; font-size: 12px; font-family: monospace; }
+  .bubble-ai table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13px; }
+  .bubble-ai th { background: #1e2d40; color: #93c5fd; padding: 8px 12px; text-align: left; font-weight: 600; border: 1px solid #2d3f55; }
+  .bubble-ai td { padding: 7px 12px; border: 1px solid #1e2d40; color: #cbd5e1; }
+  .bubble-ai tr:nth-child(even) td { background: #0f1520; }
+  .badge { display: inline-flex; align-items: center; gap: 3px; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 700; white-space: nowrap; }
+  .badge-cp { background: #450a0a; color: #f87171; border: 1px solid #7f1d1d; }
+  .badge-ra { background: #431407; color: #fb923c; border: 1px solid #7c2d12; }
+  .badge-n  { background: #052e16; color: #4ade80; border: 1px solid #14532d; }
+  .bubble-thinking { background: #161b27; border: 1px solid #1e2d40; color: #64748b; padding: 12px 18px; border-radius: 4px 16px 16px 16px; font-size: 13px; display: flex; align-items: center; gap: 8px; font-style: italic; }
+  .dot { width: 6px; height: 6px; background: #3b82f6; border-radius: 50%; display: inline-block; animation: blink 1.2s infinite; }
   .dot:nth-child(2) { animation-delay: 0.2s; }
   .dot:nth-child(3) { animation-delay: 0.4s; }
   @keyframes blink { 0%,80%,100%{opacity:.2} 40%{opacity:1} }
-
   .error-box { background: #450a0a; border: 1px solid #7f1d1d; color: #fca5a5; padding: 10px 14px; border-radius: 8px; font-size: 13px; }
-
-  #input-area {
-    display: flex; gap: 10px; padding: 16px 32px 20px;
-    background: #0f1117; border-top: 1px solid #1e2d40; align-items: flex-end;
-  }
-  #user-input {
-    flex: 1; background: #161b27; border: 1px solid #1e2d40; border-radius: 12px;
-    color: #e2e8f0; padding: 12px 16px; font-size: 14px; resize: none; line-height: 1.5;
-    outline: none; font-family: inherit;
-  }
+  #input-area { display: flex; gap: 10px; padding: 14px 36px 18px; background: #0f1117; border-top: 1px solid #1e2d40; align-items: flex-end; }
+  #user-input { flex: 1; background: #161b27; border: 1px solid #1e2d40; border-radius: 12px; color: #e2e8f0; padding: 11px 16px; font-size: 14px; resize: none; line-height: 1.5; outline: none; font-family: inherit; }
   #user-input:focus { border-color: #3b82f6; }
-  #send-btn {
-    width: 44px; height: 44px; background: linear-gradient(135deg, #1d4ed8, #7c3aed);
-    border: none; border-radius: 12px; color: #fff; font-size: 18px;
-    cursor: pointer; flex-shrink: 0; transition: opacity 0.2s;
-  }
+  #send-btn { width: 42px; height: 42px; background: linear-gradient(135deg, #1d4ed8, #7c3aed); border: none; border-radius: 12px; color: #fff; font-size: 17px; cursor: pointer; flex-shrink: 0; transition: opacity 0.2s; }
   #send-btn:disabled { opacity: 0.4; cursor: default; }
-
-  @media (max-width: 640px) {
-    #sidebar { display: none; }
-    #chat-area { padding: 16px; }
-    #input-area { padding: 12px 16px; }
-  }
+  @media (max-width: 640px) { #sidebar { display: none; } #chat-area { padding: 16px; } #input-area { padding: 12px 16px; } }
 </style>
 </head>
 <body>
-
 <aside id="sidebar">
   <div class="brand">
     <div class="brand-icon">⚡</div>
@@ -111,7 +77,6 @@
       <div class="brand-sub">Agente Estratégico</div>
     </div>
   </div>
-
   <div class="section">
     <div class="section-label">Panorama Estratégico</div>
     <div class="stat-grid">
@@ -120,10 +85,9 @@
       <div class="stat-box"><div class="stat-num" style="color:#f87171">{{ stats.cp }}</div><div class="stat-lbl">Com Problemas</div></div>
       <div class="stat-box"><div class="stat-num" style="color:#fb923c">{{ stats.ra }}</div><div class="stat-lbl">Requer Atenção</div></div>
       <div class="stat-box"><div class="stat-num" style="color:#facc15">{{ stats.ind_criticos }}</div><div class="stat-lbl">Indicadores críticos</div></div>
-      <div class="stat-box"><div class="stat-num" style="color:#4ade80">{{ stats.normal }}</div><div class="stat-lbl">Normal (gerente)</div></div>
+      <div class="stat-box"><div class="stat-num" style="color:#4ade80">{{ stats.normal }}</div><div class="stat-lbl">Normal</div></div>
     </div>
   </div>
-
   <div class="section">
     <div class="section-label">Perguntas rápidas</div>
     <button class="quick-btn" onclick="quickSend(this)">Panorama geral dos projetos estratégicos</button>
@@ -134,62 +98,83 @@
     <button class="quick-btn" onclick="quickSend(this)">Projetos concluídos</button>
     <button class="quick-btn" onclick="quickSend(this)">Quais órgãos têm mais projetos estratégicos?</button>
   </div>
-
   <button class="btn-clear" onclick="clearChat()" id="clear-btn" style="display:none">Limpar conversa</button>
-
-  <div class="sidebar-footer">{{ stats.total }} projetos · carregados no servidor</div>
+  <div class="sidebar-footer">{{ stats.total }} projetos · {{ stats.ind_criticos }} indicadores críticos</div>
 </aside>
-
 <main id="main">
   <div id="chat-area">
     <div id="empty-state">
       <div class="empty-icon">🏛️</div>
       <div class="empty-title">Agente Executivo SME-RS</div>
-      <div class="empty-sub">
-        Faça perguntas sobre os {{ stats.total }} projetos estratégicos
-        do Estado do Rio Grande do Sul.
-      </div>
+      <div class="empty-sub">Faça perguntas sobre os {{ stats.total }} projetos estratégicos do Estado do Rio Grande do Sul.</div>
     </div>
   </div>
-
   <div id="input-area">
     <textarea id="user-input" placeholder="Faça uma pergunta sobre os projetos estratégicos... (Enter para enviar)" rows="1"></textarea>
     <button id="send-btn" onclick="sendMessage()">➤</button>
   </div>
 </main>
-
 <script>
-  let historico = [];
-  let thinking = false;
+  let historico = [], thinking = false;
 
-  function escHtml(t) {
-    return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+  function renderMarkdown(text) {
+    let h = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+    // Badges de status
+    h = h.replace(/\bCP\b/g, '<span class="badge badge-cp">🔴 Com Problemas</span>');
+    h = h.replace(/\bRA\b/g, '<span class="badge badge-ra">🟠 Requer Atenção</span>');
+    h = h.replace(/(?<![A-Za-z])\bN\b(?![A-Za-z])/g, '<span class="badge badge-n">🟢 Normal</span>');
+    h = h.replace(/Com Problemas(?! badge)/g, '<span class="badge badge-cp">🔴 Com Problemas</span>');
+    h = h.replace(/Requer Aten[çc][aã]o(?! badge)/g, '<span class="badge badge-ra">🟠 Requer Atenção</span>');
+
+    // Tabelas
+    h = h.replace(/(\|.+\|\n)((?:\|[-: ]+)+\|\n)((?:\|.+\|\n?)+)/g, function(_, header, _sep, body) {
+      const ths = header.trim().split('|').filter(c=>c.trim()).map(c=>`<th>${c.trim()}</th>`).join('');
+      const trs = body.trim().split('\n').filter(r=>r.includes('|')).map(row=>{
+        const cells = row.split('|').slice(1,-1).map(c=>`<td>${c.trim()}</td>`).join('');
+        return `<tr>${cells}</tr>`;
+      }).join('');
+      return `<table><thead><tr>${ths}</tr></thead><tbody>${trs}</tbody></table>`;
+    });
+
+    // Headings
+    h = h.replace(/^#### (.+)$/gm,'<h4>$1</h4>')
+         .replace(/^### (.+)$/gm,'<h3>$1</h3>')
+         .replace(/^## (.+)$/gm,'<h2>$1</h2>')
+         .replace(/^# (.+)$/gm,'<h1>$1</h1>');
+
+    // Bold, italic, code, hr
+    h = h.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+         .replace(/\*(.+?)\*/g,'<em>$1</em>')
+         .replace(/`([^`]+)`/g,'<code>$1</code>')
+         .replace(/^---+$/gm,'<hr>');
+
+    // Listas
+    h = h.replace(/((?:^- .+\n?)+)/gm, b => '<ul>'+b.trim().split('\n').map(l=>`<li>${l.replace(/^- /, '')}</li>`).join('')+'</ul>');
+    h = h.replace(/((?:^\d+\. .+\n?)+)/gm, b => '<ol>'+b.trim().split('\n').map(l=>`<li>${l.replace(/^\d+\. /, '')}</li>`).join('')+'</ol>');
+
+    // Parágrafos
+    h = h.replace(/^(?!<[houtli]|$)(.+)$/gm,'<p>$1</p>');
+
+    return h;
   }
 
   function appendMsg(role, content) {
     const empty = document.getElementById('empty-state');
     if (empty) empty.remove();
-
     const chat = document.getElementById('chat-area');
     const wrap = document.createElement('div');
-
     if (role === 'user') {
       wrap.className = 'msg-user';
-      wrap.innerHTML = `<div class="bubble-user">${escHtml(content)}</div>`;
+      const t = String(content).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      wrap.innerHTML = `<div class="bubble-user">${t}</div>`;
     } else if (role === 'thinking') {
-      wrap.className = 'msg-ai';
-      wrap.id = 'thinking-bubble';
-      wrap.innerHTML = `<div class="ai-label">⚡ Agente SME-RS</div>
-        <div class="bubble-thinking">
-          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-          Analisando dados estratégicos...
-        </div>`;
+      wrap.className = 'msg-ai'; wrap.id = 'thinking-bubble';
+      wrap.innerHTML = `<div class="ai-label">⚡ Agente SME-RS</div><div class="bubble-thinking"><span class="dot"></span><span class="dot"></span><span class="dot"></span> Analisando dados estratégicos...</div>`;
     } else {
       wrap.className = 'msg-ai';
-      wrap.innerHTML = `<div class="ai-label">⚡ Agente SME-RS</div>
-        <div class="bubble-ai">${escHtml(content)}</div>`;
+      wrap.innerHTML = `<div class="ai-label">⚡ Agente SME-RS</div><div class="bubble-ai">${renderMarkdown(content)}</div>`;
     }
-
     chat.appendChild(wrap);
     chat.scrollTop = chat.scrollHeight;
     document.getElementById('clear-btn').style.display = '';
@@ -197,44 +182,34 @@
   }
 
   function showError(msg) {
-    const chat = document.getElementById('chat-area');
     const el = document.createElement('div');
-    el.className = 'error-box';
-    el.textContent = msg;
-    chat.appendChild(el);
-    chat.scrollTop = chat.scrollHeight;
+    el.className = 'error-box'; el.textContent = msg;
+    document.getElementById('chat-area').appendChild(el);
     setTimeout(() => el.remove(), 7000);
   }
 
   async function sendMessage(text) {
     if (!text) text = document.getElementById('user-input').value.trim();
     if (!text || thinking) return;
-
     thinking = true;
     document.getElementById('send-btn').disabled = true;
     document.getElementById('user-input').value = '';
-
     appendMsg('user', text);
     const thinkEl = appendMsg('thinking');
     historico.push({ role: 'user', content: text });
-
     try {
       const resp = await fetch('/perguntar', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ pergunta: text, historico: historico })
       });
-
       const data = await resp.json();
       if (data.erro) throw new Error(data.erro);
-
       thinkEl.remove();
       appendMsg('assistant', data.resposta);
       historico.push({ role: 'assistant', content: data.resposta });
-
     } catch(e) {
-      thinkEl.remove();
-      historico.pop();
+      thinkEl.remove(); historico.pop();
       showError('Erro ao consultar o agente: ' + e.message);
     } finally {
       thinking = false;
@@ -246,16 +221,11 @@
 
   function clearChat() {
     historico = [];
-    document.getElementById('chat-area').innerHTML = `
-      <div id="empty-state">
-        <div class="empty-icon">🏛️</div>
-        <div class="empty-title">Agente Executivo SME-RS</div>
-        <div class="empty-sub">Faça perguntas sobre os projetos estratégicos do Estado do Rio Grande do Sul.</div>
-      </div>`;
+    document.getElementById('chat-area').innerHTML = `<div id="empty-state"><div class="empty-icon">🏛️</div><div class="empty-title">Agente Executivo SME-RS</div><div class="empty-sub">Faça perguntas sobre os projetos estratégicos do Estado do Rio Grande do Sul.</div></div>`;
     document.getElementById('clear-btn').style.display = 'none';
   }
 
-  document.getElementById('user-input').addEventListener('keydown', function(e) {
+  document.getElementById('user-input').addEventListener('keydown', e => {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
   });
 </script>
